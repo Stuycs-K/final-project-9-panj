@@ -1,5 +1,6 @@
 public class Paddle{
   private float x;
+  private static final int movement=10;
   public Paddle(float xPos){
     x=xPos;
   }
@@ -9,11 +10,16 @@ public class Paddle{
   }
   public void move(){
     if(keyPressed){
-      if(key=='A' || key=='a') x-=10;
-      else if(key=='D'|| key=='d') x+=10;
-      else if (key == CODED) {
-        if (keyCode == LEFT) x-=10;
-        else if (keyCode == RIGHT) x+=10;
+      if(key=='A' || key=='a'){
+        if(x>=movement) x-=movement;
+      }else if(key=='D'|| key=='d'){
+        if(x<=width-movement) x+=movement;
+      }else if (key == CODED) {
+        if (keyCode == LEFT){
+          if(x>=movement) x-=movement;
+        }else if (keyCode == RIGHT){
+          if(x<=width-movement) x+=movement;
+        }
       }
     }
   }
