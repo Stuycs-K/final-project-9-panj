@@ -1,22 +1,7 @@
 # Work Log
 
-## GROUP MEMBER 1
+## Justin Pan
 
-### date x
+### 05/22
 
-info
-
-### date y
-
-info
-
-
-## GROUP MEMBER 2
-
-### date x
-
-info
-
-### date y
-
-info
+-Added the Ball class and tested if it bounced and moved correctly
