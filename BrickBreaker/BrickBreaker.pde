@@ -3,7 +3,7 @@ Paddle p;
 void setup(){
   size(1200,800);
   balls.add(new Ball(width/2,height/2,1,1));
-  p=new Paddle(width/2,height*3/4);
+  p=new Paddle(width/2);
 }
 
 void draw(){
@@ -11,4 +11,5 @@ void draw(){
   balls.get(0).display();
   balls.get(0).move();
   p.display();
+  p.move();
 }
