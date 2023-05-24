@@ -9,3 +9,8 @@
 ### 05/23
 
 -Added the Paddle class and tested if it displayed correctly
+
+### 05/24
+
+-Added given Controller to fix Paddle movement based on key presses
+
