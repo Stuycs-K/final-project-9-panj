@@ -1,6 +1,6 @@
 public class Ball {
-  private float x,y;
-  private float xD,yD;
+  private float x, y;
+  private float xD, yD;
   private static final int r=10;
   public Ball(float xPos, float yPos, float xSpe, float ySpe) {
     x = xPos;
@@ -15,7 +15,7 @@ public class Ball {
   void move() {
     x+=2*xD;
     y+=2*yD;
-    if(x>width-r || x<r) xD*=-1;
-    if(y>height-r || y<r) yD*=-1;
+    if (x>width-r || x<r) xD*=-1;
+    if (y>height-r || y<r) yD*=-1;
   }
 }
