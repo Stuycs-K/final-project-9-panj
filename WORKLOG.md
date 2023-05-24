@@ -13,4 +13,4 @@
 ### 05/24
 
 -Added given Controller to fix Paddle movement based on key presses
-
+-Added a basic Brick class and tested display
