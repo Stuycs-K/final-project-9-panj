@@ -14,3 +14,7 @@
 
 -Added given Controller to fix Paddle movement based on key presses
 -Added a basic Brick class and tested display
+
+### 05/25
+
+-Began to add collision movements
