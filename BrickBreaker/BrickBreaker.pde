@@ -10,12 +10,11 @@ void keyReleased() {
 }
 void collide(){
   for(int i=0;i<balls.size();i++){
-    if((balls.get(i).x>p.x || balls.get(i).x<p.x+rwidth) && (balls.get(i).y>p.y || balls.get(i).y<p.y+rheight)){
+    if((balls.get(i).x+Ball.r>p.x)
+    //&& balls.get(i).y>=p.y) 
+    && (balls.get(i).x<p.x+Paddle.rwidth)){
+    //&& balls.get(i).y<p.y+rheight)){
       balls.get(i).xD*=-1;
-      balls.get(i).yD*=-1;
-    }
-    for(int j=0;j<bricks.size();j++){
-      
     }
   }
 }
@@ -39,4 +38,5 @@ void draw() {
   p.display();
   if(keyboardInput.isPressed(Controller.P1_LEFT)) p.moveLeft();
   else if(keyboardInput.isPressed(Controller.P1_RIGHT)) p.moveRight();
+  collide();
 }
