@@ -17,7 +17,7 @@ void collide() {
   }
 }
 boolean closeEnough(float a, float b){
-   return((Math.abs(a-b)/((a+b)/2))*100<0.01);
+   return((Math.abs(a-b)/((a+b)/2))*100<0.145879);
 }
 void setup() {
   size(1200, 800);
