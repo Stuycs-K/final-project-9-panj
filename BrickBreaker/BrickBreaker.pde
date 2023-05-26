@@ -11,11 +11,13 @@ void keyReleased() {
 void collide() {
   for (int i=0; i<balls.size(); i++) {
     Ball b=balls.get(i);
-    if (b.x+Ball.r>p.x && b.x<p.x+Paddle.rwidth) {
-      b.xD*=-1;
+    if (b.x+Ball.r>p.x && b.x<p.x+Paddle.rwidth && closeEnough(b.y+Ball.r,p.y)) {
       b.yD*=-1;
     }
   }
+}
+boolean closeEnough(float a, float b){
+   return((Math.abs(a-b)/((a+b)/2))*100<0.01);
 }
 void setup() {
   size(1200, 800);
