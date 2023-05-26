@@ -10,10 +10,10 @@ void keyReleased() {
 }
 void collide() {
   for (int i=0; i<balls.size(); i++) {
-    if ((balls.get(i).x+Ball.r>p.x && balls.get(i).x<p.x+Paddle.rwidth) &&
-      (balls.get(i).y+Ball.r==Paddle.rheight)) {
-      balls.get(i).xD*=-1;
-      balls.get(i).yD*=-1;
+    Ball b=balls.get(i);
+    if (b.x+Ball.r>p.x && b.x<p.x+Paddle.rwidth) {
+      b.xD*=-1;
+      b.yD*=-1;
     }
   }
 }
@@ -22,11 +22,11 @@ void setup() {
   keyboardInput = new Controller();
   balls.add(new Ball(width/2, height/2, 1, 1));
   p=new Paddle(width/2);
-  for (int i=0; i<width; i+=Brick.rwidth) {
-    for (int j=0; j<height/3; j+=Brick.rheight) {
-      bricks.add(new Brick(i, j));
-    }
-  }
+  //for (int i=0; i<width; i+=Brick.rwidth) {
+  //  for (int j=0; j<height/3; j+=Brick.rheight) {
+  //    bricks.add(new Brick(i, j));
+  //  }
+  //}
 }
 
 void draw() {
