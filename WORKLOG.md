@@ -22,3 +22,4 @@
 ### 05/26
 
 -Finished Paddle collision
+-Began Brick collision
