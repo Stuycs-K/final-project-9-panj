@@ -18,3 +18,7 @@
 ### 05/25
 
 -Began to add collision movements
+
+### 05/26
+
+-Finished Paddle collision
