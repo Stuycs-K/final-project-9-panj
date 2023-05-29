@@ -19,7 +19,6 @@ void setup() {
     }
   }
 }
-
 void draw() {
   background(255);
   balls.get(0).display();
@@ -29,4 +28,21 @@ void draw() {
   if (keyboardInput.isPressed(Controller.P1_LEFT)) p.moveLeft();
   else if (keyboardInput.isPressed(Controller.P1_RIGHT)) p.moveRight();
   collide();
+}
+void collide() {
+  for (int i=0; i<balls.size(); i++) {
+    Ball b=balls.get(i);
+    if (b.x+Ball.r>p.x && b.x<p.x+Paddle.rwidth && closeEnough(b.y+Ball.r, p.y)) {
+      b.yD*=-1;
+    }
+    for (int j=0; j<bricks.size(); j++) {
+      Brick br=bricks.get(j);
+      if (b.x+Ball.r>p.x && b.x<p.x+Paddle.rwidth && closeEnough(b.y+Ball.r, p.y)) {
+        b.yD*=-1;
+      }
+    }
+  }
+}
+boolean closeEnough(float a, float b) {
+  return((Math.abs(a-b)/((a+b)/2))*100<0.145879);
 }
