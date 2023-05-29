@@ -5,7 +5,7 @@ public class Paddle {
   private static final int rheight=20;  
   public Paddle(float xPos) {
     x=xPos;
-    y=height*6/7;
+    y=height*4/5;
   }
   public void display() {
     fill(255);
