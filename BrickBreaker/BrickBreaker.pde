@@ -35,10 +35,17 @@ void collide() {
     if (b.x+Ball.r>p.x && b.x<p.x+Paddle.rwidth && b.y==p.y) {
       b.yD*=-1;
     }
+    if (b.y+Ball.r>p.y && b.y<p.y+Paddle.rheight && (b.x+Ball.r==p.x || b.x==p.x+Paddle.rheight)) {
+      b.xD*=-1;
+    }
     for (int j=0; j<bricks.size(); j++) {
       Brick br=bricks.get(j);
       if (b.x+Ball.r>br.x && b.x<br.x+Brick.rwidth && (b.y+Ball.r==br.y || b.y==br.y+Brick.rheight)) {
         b.yD*=-1;
+        bricks.remove(br);
+      }
+      if (b.y+Ball.r>br.y && b.y<br.y+Brick.rheight && (b.x+Ball.r==br.x || b.x==br.x+Brick.rheight)) {
+        b.xD*=-1;
         bricks.remove(br);
       }
     }
