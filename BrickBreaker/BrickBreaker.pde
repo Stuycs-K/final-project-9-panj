@@ -28,7 +28,23 @@ void draw() {
   if (keyboardInput.isPressed(Controller.P1_LEFT)) p.moveLeft();
   else if (keyboardInput.isPressed(Controller.P1_RIGHT)) p.moveRight();
   collide();
+  if (balls.size()==0) lose();
+  else if (bricks.size()==0) win();
 }
+void lose() {
+  freeze();
+}
+void win() { 
+  freeze();
+}
+void freeze() {
+  for(int i=0;i<balls.size();i++){
+    balls.get(i).xD=0;
+    balls.get(i).yD=0;
+  }
+  p.movement=0;
+}
+
 void collide() {
   for (int i=0; i<balls.size(); i++) {
     Ball b=balls.get(i);
