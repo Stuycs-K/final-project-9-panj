@@ -21,7 +21,7 @@ void setup() {
 }
 void draw() {
   background(255);
-  balls.get(0).display();
+  for (int i=0; i<balls.size(); i++) balls.get(i).display();
   for (int i=0; i<bricks.size(); i++) bricks.get(i).display();
   balls.get(0).move();
   p.display();
