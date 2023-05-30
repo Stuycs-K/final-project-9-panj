@@ -23,3 +23,4 @@
 
 -Finished Paddle collision
 -Began Brick collision
+-Added Brick removal
