@@ -21,9 +21,11 @@ void setup() {
 }
 void draw() {
   background(255);
-  for (int i=0; i<balls.size(); i++) balls.get(i).display();
+  for (int i=0; i<balls.size(); i++) {
+    balls.get(i).display();
+    balls.get(i).move();
+  }
   for (int i=0; i<bricks.size(); i++) bricks.get(i).display();
-  balls.get(0).move();
   p.display();
   if (keyboardInput.isPressed(Controller.P1_LEFT)) p.moveLeft();
   else if (keyboardInput.isPressed(Controller.P1_RIGHT)) p.moveRight();
@@ -34,11 +36,11 @@ void draw() {
 void lose() {
   freeze();
 }
-void win() { 
+void win() {
   freeze();
 }
 void freeze() {
-  for(int i=0;i<balls.size();i++){
+  for (int i=0; i<balls.size(); i++) {
     balls.get(i).xD=0;
     balls.get(i).yD=0;
   }
@@ -54,6 +56,7 @@ void collide() {
     if (b.y+Ball.r>p.y && b.y<p.y+Paddle.rheight && (b.x+Ball.r==p.x || b.x==p.x+Paddle.rheight)) {
       b.xD*=-1;
     }
+    if (b.y+Ball.r==height) balls.remove(b);
     for (int j=0; j<bricks.size(); j++) {
       Brick br=bricks.get(j);
       if (b.x+Ball.r>br.x && b.x<br.x+Brick.rwidth && (b.y+Ball.r==br.y || b.y==br.y+Brick.rheight)) {
