@@ -32,13 +32,14 @@ void draw() {
 void collide() {
   for (int i=0; i<balls.size(); i++) {
     Ball b=balls.get(i);
-    if (b.x+Ball.r>p.x && b.x<p.x+Paddle.rwidth && (b.y== p.y)) {
+    if (b.x+Ball.r>p.x && b.x<p.x+Paddle.rwidth && b.y==p.y) {
       b.yD*=-1;
     }
     for (int j=0; j<bricks.size(); j++) {
       Brick br=bricks.get(j);
-      if (b.x+Ball.r>br.x && b.x<br.x+Brick.rwidth && (b.y+Ball.r== br.y || b.y==br.y+Brick.rheight)) {
+      if (b.x+Ball.r>br.x && b.x<br.x+Brick.rwidth && (b.y+Ball.r==br.y || b.y==br.y+Brick.rheight)) {
         b.yD*=-1;
+        bricks.remove(br);
       }
     }
   }
