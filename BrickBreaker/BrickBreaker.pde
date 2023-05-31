@@ -30,14 +30,25 @@ void draw() {
   if (keyboardInput.isPressed(Controller.P1_LEFT)) p.moveLeft();
   else if (keyboardInput.isPressed(Controller.P1_RIGHT)) p.moveRight();
   collide();
-  if (balls.size()==0) lose();
-  else if (bricks.size()==0) win();
+  if (balls.size()==0) {
+    lose();
+  } else if (bricks.size()==0) {
+    win();
+  }
 }
 void lose() {
   freeze();
+  fill(0);
+  textSize(100);
+  textAlign(CENTER, CENTER);
+  text("GAME OVER.", 600, 400);
 }
 void win() {
   freeze();
+  fill(0);
+  textSize(100);
+  textAlign(CENTER, CENTER);
+  text("YOU WIN.", 600, 400);
 }
 void freeze() {
   for (int i=0; i<balls.size(); i++) {
