@@ -29,3 +29,7 @@
 
 -Finish Brick collisions
 -Added screen freezing conditions for win/loss
+
+### 05/31
+-Finished Win/Lose Screen
+-Tweak Collisions
