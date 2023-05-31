@@ -41,14 +41,14 @@ void lose() {
   fill(0);
   textSize(100);
   textAlign(CENTER, CENTER);
-  text("GAME OVER", 600, 400);
+  text("GAME OVER.", 600, 400);
 }
 void win() {
   freeze();
   fill(0);
   textSize(100);
   textAlign(CENTER, CENTER);
-  text("YOU WIN", 600, 400);
+  text("YOU WIN.", 600, 400);
 }
 void freeze() {
   for (int i=0; i<balls.size(); i++) {
