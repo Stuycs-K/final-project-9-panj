@@ -1,6 +1,6 @@
 public class Paddle {
   private float x, y;
-  private static final int movement=10;
+  private int movement=10;
   private static final int rwidth=100;
   private static final int rheight=20;  
   public Paddle(float xPos) {
