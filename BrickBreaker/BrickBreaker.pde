@@ -20,6 +20,10 @@ void setup() {
   }
 }
 void draw() {
+  if (mousePressed && (mouseButton == RIGHT)) {
+    for(int i=0;i<bricks.size();i=0) bricks.remove(i);
+    bricks.add(new Brick(800,600));
+  }
   background(255);
   for (int i=0; i<balls.size(); i++) {
     balls.get(i).display();
@@ -30,11 +34,8 @@ void draw() {
   if (keyboardInput.isPressed(Controller.P1_LEFT)) p.moveLeft();
   else if (keyboardInput.isPressed(Controller.P1_RIGHT)) p.moveRight();
   collide();
-  if (balls.size()==0) {
-    lose();
-  } else if (bricks.size()==0) {
-    win();
-  }
+  if (balls.size()==0) lose();
+  else if (bricks.size()==0) win();
 }
 void lose() {
   freeze();
@@ -57,7 +58,6 @@ void freeze() {
   }
   p.movement=0;
 }
-
 void collide() {
   for (int i=0; i<balls.size(); i++) {
     Ball b=balls.get(i);
