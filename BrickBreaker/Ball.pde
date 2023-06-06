@@ -9,6 +9,7 @@ public class Ball {
     yD = ySpe;
   }
   void display() {
+    ellipseMode(CENTER);
     fill(255);
     circle(x, y, 2*r);
   }
