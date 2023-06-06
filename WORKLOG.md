@@ -41,3 +41,4 @@
 ### 06/06
 -Begin fixing collisions
 -Changing shapes to be center
+-Fixed Ball, Brick, and Paddle display
