@@ -33,3 +33,7 @@
 ### 05/31
 -Finished Win/Lose Screen
 -Tweak Collisions
+
+### 06/01
+-Added Demo Branch
+-Added "cheat codes"
