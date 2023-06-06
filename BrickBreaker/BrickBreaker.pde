@@ -13,8 +13,8 @@ void setup() {
   keyboardInput = new Controller();
   balls.add(new Ball(width/2, height/2, 1, 1));
   p=new Paddle(width/2);
-  for (int i=0; i<width; i+=Brick.rwidth) {
-    for (int j=0; j<height/3; j+=Brick.rheight) {
+  for (int i=Brick.rwidth/2; i<width; i+=Brick.rwidth) {
+    for (int j=Brick.rheight/2; j<height/3; j+=Brick.rheight) {
       bricks.add(new Brick(i, j));
     }
   }
