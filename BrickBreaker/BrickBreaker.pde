@@ -61,7 +61,6 @@ void freeze() {
 void collide() {
   for (int i=0; i<balls.size(); i++) {
     Ball b=balls.get(i);
-    if (b.x+Ball.r>p.x && b.x<p.x+Paddle.rwidth && b.y+Ball.r==p.y) {
       b.yD*=-1;
     }
     if (b.y+Ball.r>p.y && b.y<p.y+Paddle.rheight && (b.x+Ball.r==p.x || b.x==p.x+Paddle.rheight)) {
