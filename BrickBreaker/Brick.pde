@@ -7,7 +7,7 @@ public class Brick {
     y=yPos;
   }
   public void display() {
-    rectMode(CENTER);
+    rectMode(CORNER);
     fill(255);
     rect(x, y, rwidth, rheight);
   }

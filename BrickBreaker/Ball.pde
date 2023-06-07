@@ -16,7 +16,7 @@ public class Ball {
   void move() {
     x+=2*xD;
     y+=2*yD;
-    if (x>width-r || x<r) xD*=-1;
-    if (y>height-r || y<r) yD*=-1;
+    if (x+r>width || x-r==0) xD*=-1;
+    if (y+r>height || y-r==0) yD*=-1;
   }
 }

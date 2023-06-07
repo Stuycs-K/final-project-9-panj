@@ -14,8 +14,8 @@ void setup() {
   keyboardInput = new Controller();
   balls.add(new Ball(width/2, height/2, 1, 1));
   p=new Paddle(width/2);
-  for (int i=Brick.rwidth/2; i<width; i+=Brick.rwidth) {
-    for (int j=Brick.rheight/2; j<height/3; j+=Brick.rheight) {
+  for (int i=0; i<width; i+=Brick.rwidth) {
+    for (int j=0; j<height/3; j+=Brick.rheight) {
       bricks.add(new Brick(i, j));
     }
   }
@@ -57,7 +57,7 @@ void win() {
 void collide() {
   for (int i=0; i<balls.size(); i++) {
     Ball b=balls.get(i);
-    if (b.x+Ball.r>p.y && b.y<p.y+Paddle.rheight && (b.x+Ball.r==p.x || b.x==p.x+Paddle.rheight)) {
+    if (b.x+Ball.r>p.y && b.y+Ball.r<p.y+Paddle.rheight && (b.x+Ball.r==p.x || b.x==p.x+Paddle.rheight)) {
       b.xD*=-1;
     }
     if (b.y+Ball.r==height) balls.remove(b);
