@@ -2,6 +2,7 @@ ArrayList<Ball> balls=new ArrayList<Ball>(1);
 ArrayList<Brick> bricks=new ArrayList<Brick>();
 Paddle p;
 Controller keyboardInput;
+boolean run=true;
 void keyPressed() {
   keyboardInput.press(keyCode);
 }
@@ -20,48 +21,43 @@ void setup() {
   }
 }
 void draw() {
-  background(255);
-  for (int i=0; i<balls.size(); i++) {
-    balls.get(i).display();
-    balls.get(i).move();
-  }
-  for (int i=0; i<bricks.size(); i++) bricks.get(i).display();
-  p.display();
-  if (keyboardInput.isPressed(Controller.P1_LEFT)) p.moveLeft();
-  else if (keyboardInput.isPressed(Controller.P1_RIGHT)) p.moveRight();
-  collide();
-  if (balls.size()==0) {
-    lose();
-  } else if (bricks.size()==0) {
-    win();
+  if (run) {
+    background(255);
+    for (int i=0; i<balls.size(); i++) {
+      balls.get(i).display();
+      balls.get(i).move();
+    }
+    for (int i=0; i<bricks.size(); i++) bricks.get(i).display();
+    p.display();
+    if (keyboardInput.isPressed(Controller.P1_LEFT)) p.moveLeft();
+    else if (keyboardInput.isPressed(Controller.P1_RIGHT)) p.moveRight();
+    collide();
+    if (balls.size()==0) {
+      lose();
+    } else if (bricks.size()==0) {
+      win();
+    }
   }
 }
 void lose() {
-  freeze();
+  run=false;
   fill(0);
   textSize(100);
   textAlign(CENTER, CENTER);
   text("GAME OVER", 600, 400);
 }
 void win() {
-  freeze();
+  run=false;
   fill(0);
   textSize(100);
   textAlign(CENTER, CENTER);
   text("YOU WIN", 600, 400);
 }
-void freeze() {
-  for (int i=0; i<balls.size(); i++) {
-    balls.get(i).xD=0;
-    balls.get(i).yD=0;
-  }
-  p.movement=0;
-}
 
 void collide() {
   for (int i=0; i<balls.size(); i++) {
     Ball b=balls.get(i);
-    if (b.y+Ball.r>p.y && b.y<p.y+Paddle.rheight && (b.x+Ball.r==p.x || b.x==p.x+Paddle.rheight)) {
+    if (b.x+Ball.r>p.y && b.y<p.y+Paddle.rheight && (b.x+Ball.r==p.x || b.x==p.x+Paddle.rheight)) {
       b.xD*=-1;
     }
     if (b.y+Ball.r==height) balls.remove(b);
