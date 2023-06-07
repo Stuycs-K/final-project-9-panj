@@ -33,3 +33,12 @@
 ### 05/31
 -Finished Win/Lose Screen
 -Tweak Collisions
+
+### 06/01
+-Added Demo Branch
+-Added "cheat codes"
+
+### 06/06
+-Begin fixing collisions
+-Changing shapes to be center
+-Fixed Ball, Brick, and Paddle display
