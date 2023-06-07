@@ -13,9 +13,9 @@ public class Paddle {
     rect(x, y, rwidth, rheight, 15);
   }
   public void moveLeft() {
-    if (x>=movement) x-=movement;
+    if (x-rwidth/2-movement>=0) x-=movement;
   }
   public void moveRight() {
-    if (x<=width-movement-rwidth) x+=movement;
+    if (x+rwidth/2+movement<=width) x+=movement;
   }
 }

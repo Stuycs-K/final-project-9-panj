@@ -32,11 +32,8 @@ void draw() {
     if (keyboardInput.isPressed(Controller.P1_LEFT)) p.moveLeft();
     else if (keyboardInput.isPressed(Controller.P1_RIGHT)) p.moveRight();
     collide();
-    if (balls.size()==0) {
-      lose();
-    } else if (bricks.size()==0) {
-      win();
-    }
+    if (balls.size()==0) lose();
+    else if (bricks.size()==0) win();
   }
 }
 void lose() {
@@ -57,9 +54,7 @@ void win() {
 void collide() {
   for (int i=0; i<balls.size(); i++) {
     Ball b=balls.get(i);
-    if (b.x+Ball.r>p.y && b.y+Ball.r<p.y+Paddle.rheight && (b.x+Ball.r==p.x || b.x==p.x+Paddle.rheight)) {
-      b.xD*=-1;
-    }
+    if (b.y+Ball.r==p.y) b.yD*=-1;
     if (b.y+Ball.r==height) balls.remove(b);
     for (int j=0; j<bricks.size(); j++) {
       Brick br=bricks.get(j);
