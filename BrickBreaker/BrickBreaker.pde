@@ -19,7 +19,7 @@ void setupScreen() {
   keyboardInput = new Controller();
   int[] randomspeed=new int[] {-1, 1};
   balls.add(new Ball(int(random(2*Ball.r, width-2*Ball.r)), height/2, randomspeed[int(random(1))], 1));
-  p=new Paddle(width/2);
+  p=new Paddle(int(random(2*Paddle.rwidth, width-2*Paddle.rwidth)));
   for (int i=Brick.rwidth; i<width; i+=2*Brick.rwidth) {
     for (int j=Brick.rheight; j<height/3; j+=2*Brick.rheight) {
       bricks.add(new Brick(i, j));
