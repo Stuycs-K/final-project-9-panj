@@ -2,6 +2,8 @@ ArrayList<Ball> balls=new ArrayList<Ball>(1);
 ArrayList<Brick> bricks=new ArrayList<Brick>();
 Paddle p;
 Controller keyboardInput;
+int score=0;
+int total=0;
 boolean run=true;
 void keyPressed() {
   keyboardInput.press(keyCode);
@@ -20,6 +22,7 @@ void setupScreen() {
   for (int i=Brick.rwidth; i<width; i+=2*Brick.rwidth) {
     for (int j=Brick.rheight; j<height/3; j+=2*Brick.rheight) {
       bricks.add(new Brick(i, j));
+      total++;
     }
   }
   run=true;
@@ -38,8 +41,8 @@ void draw() {
     collide();
     if (balls.size()==0) lose();
     else if (bricks.size()==0) win();
-  }else{
-    if(key==ENTER) setupScreen();
+  } else {
+    if (key==ENTER) setupScreen();
   }
 }
 void lose() {
@@ -49,6 +52,7 @@ void lose() {
   textAlign(CENTER, CENTER);
   text("GAME OVER", 600, 400);
   textSize(50);
+  text("SCORE: "+score+"/"+total, 600, 500);
   text("Press ENTER to restart", 600, 600);
 }
 void win() {
@@ -58,6 +62,7 @@ void win() {
   textAlign(CENTER, CENTER);
   text("YOU WIN", 600, 400);
   textSize(50);
+  text("SCORE: "+score+"/"+total, 600, 500);
   text("Press ENTER to restart", 600, 600);
 }
 
@@ -72,9 +77,11 @@ void collide() {
       if ((b.y+Ball.r==br.y-Brick.rheight || b.y-Ball.r==br.y+Brick.rheight) && (b.x+Ball.r>br.x-Brick.rwidth && b.x-Ball.r<br.x+Brick.rwidth)) {
         b.yD*=-1;
         bricks.remove(br);
+        score++;
       } else if ((b.x+Ball.r==br.x-Brick.rwidth || b.x-Ball.r==br.x+Brick.rwidth) && (b.y+Ball.r>br.y-Brick.rheight && b.y-Ball.r<br.y+Brick.rheight)) {
         b.xD*=-1;
         bricks.remove(br);
+        score++;
       }
     }
   }
