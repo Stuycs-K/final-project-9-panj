@@ -12,7 +12,7 @@ void keyReleased() {
 }
 void setup() {
   size(1200, 800);
-  setupScreen();
+  run="START";
 }
 void setupScreen() {
   keyboardInput = new Controller();
@@ -31,7 +31,16 @@ void setupScreen() {
   run="RUN";
 }
 void draw() {
-  if (run.equals("RUN")) {
+  if (run.equals("START")) {
+    background(255);
+    fill(0);
+    textSize(100);
+    textAlign(CENTER, CENTER);
+    text("Brick Breaker", 600, 100);
+    textSize(50);
+    text("Difficulty", 600, 400);
+  } else if (run.equals("RUN")) {
+    setupScreen();
     background(255);
     for (int i=0; i<balls.size(); i++) {
       balls.get(i).display();
@@ -44,7 +53,7 @@ void draw() {
     collide();
     if (balls.size()==0) lose();
     else if (bricks.size()==0) win();
-  } else if(run.equals("END")) {
+  } else if (run.equals("END")) {
     if (key==ENTER) setupScreen();
   }
 }
