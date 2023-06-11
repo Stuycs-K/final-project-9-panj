@@ -3,7 +3,7 @@ ArrayList<Brick> bricks=new ArrayList<Brick>();
 Paddle p;
 Controller keyboardInput;
 int total=0;
-boolean run=true;
+String run;
 void keyPressed() {
   keyboardInput.press(keyCode);
 }
@@ -28,10 +28,10 @@ void setupScreen() {
       total++;
     }
   }
-  run=true;
+  run="RUN";
 }
 void draw() {
-  if (run) {
+  if (run.equals("RUN")) {
     background(255);
     for (int i=0; i<balls.size(); i++) {
       balls.get(i).display();
@@ -44,12 +44,12 @@ void draw() {
     collide();
     if (balls.size()==0) lose();
     else if (bricks.size()==0) win();
-  } else {
+  } else if(run.equals("END")) {
     if (key==ENTER) setupScreen();
   }
 }
 void lose() {
-  run=false;
+  run="END";
   fill(0);
   textSize(100);
   textAlign(CENTER, CENTER);
@@ -59,7 +59,7 @@ void lose() {
   text("Press ENTER to restart", 600, 600);
 }
 void win() {
-  run=false;
+  run="END";
   fill(0);
   textSize(100);
   textAlign(CENTER, CENTER);
