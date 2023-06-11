@@ -2,6 +2,9 @@ ArrayList<Ball> balls=new ArrayList<Ball>(1);
 ArrayList<Brick> bricks=new ArrayList<Brick>();
 Paddle p;
 Controller keyboardInput;
+int score=0;
+int total=0;
+boolean run=true;
 void keyPressed() {
   keyboardInput.press(keyCode);
 }
@@ -10,72 +13,75 @@ void keyReleased() {
 }
 void setup() {
   size(1200, 800);
+  setupScreen();
+}
+void setupScreen() {
   keyboardInput = new Controller();
-  balls.add(new Ball(width/2, height/2, 1, 1));
+  balls.add(new Ball(width/4, height/2, 1, 1));
   p=new Paddle(width/2);
-  for (int i=0; i<width; i+=Brick.rwidth) {
-    for (int j=0; j<height/3; j+=Brick.rheight) {
+  for (int i=Brick.rwidth; i<width; i+=2*Brick.rwidth) {
+    for (int j=Brick.rheight; j<height/3; j+=2*Brick.rheight) {
       bricks.add(new Brick(i, j));
+      total++;
     }
   }
+  run=true;
 }
 void draw() {
-  background(255);
-  for (int i=0; i<balls.size(); i++) {
-    balls.get(i).display();
-    balls.get(i).move();
-  }
-  for (int i=0; i<bricks.size(); i++) bricks.get(i).display();
-  p.display();
-  if (keyboardInput.isPressed(Controller.P1_LEFT)) p.moveLeft();
-  else if (keyboardInput.isPressed(Controller.P1_RIGHT)) p.moveRight();
-  collide();
-  if (balls.size()==0) {
-    lose();
-  } else if (bricks.size()==0) {
-    win();
+  if (run) {
+    background(255);
+    for (int i=0; i<balls.size(); i++) {
+      balls.get(i).display();
+      balls.get(i).move();
+    }
+    for (int i=0; i<bricks.size(); i++) bricks.get(i).display();
+    p.display();
+    if (keyboardInput.isPressed(Controller.P1_LEFT)) p.moveLeft();
+    else if (keyboardInput.isPressed(Controller.P1_RIGHT)) p.moveRight();
+    collide();
+    if (balls.size()==0) lose();
+    else if (bricks.size()==0) win();
+  } else {
+    if (key==ENTER) setupScreen();
   }
 }
 void lose() {
-  freeze();
+  run=false;
   fill(0);
   textSize(100);
   textAlign(CENTER, CENTER);
   text("GAME OVER", 600, 400);
+  textSize(50);
+  text("SCORE: "+score+"/"+total, 600, 500);
+  text("Press ENTER to restart", 600, 600);
 }
 void win() {
-  freeze();
+  run=false;
   fill(0);
   textSize(100);
   textAlign(CENTER, CENTER);
   text("YOU WIN", 600, 400);
-}
-void freeze() {
-  for (int i=0; i<balls.size(); i++) {
-    balls.get(i).xD=0;
-    balls.get(i).yD=0;
-  }
-  p.movement=0;
+  textSize(50);
+  text("SCORE: "+score+"/"+total, 600, 500);
+  text("Press ENTER to restart", 600, 600);
 }
 
 void collide() {
   for (int i=0; i<balls.size(); i++) {
     Ball b=balls.get(i);
-    if (b.x+Ball.r>p.x && b.x<p.x+Paddle.rwidth && b.y+Ball.r==p.y) {
-      b.yD*=-1;
-    }
-    if (b.y+Ball.r>p.y && b.y<p.y+Paddle.rheight && (b.x+Ball.r==p.x || b.x==p.x+Paddle.rheight)) {
-      b.xD*=-1;
-    }
-    if (b.y+Ball.r==height) balls.remove(b);
+    if ((b.y+Ball.r==p.y-Paddle.rheight || b.y-Ball.r==p.y+Paddle.rheight) && (b.x+Ball.r>p.x-Paddle.rwidth && b.x-Ball.r<p.x+Paddle.rwidth)) b.yD*=-1;
+    else if ((b.x+Ball.r==p.x-Paddle.rwidth || b.x-Ball.r==p.x+Paddle.rwidth) && (b.y+Ball.r>p.y-Paddle.rheight && b.y-Ball.r<p.y+Paddle.rheight)) b.xD*=-1;
+    else if (b.y+Ball.r==height) balls.remove(b);
     for (int j=0; j<bricks.size(); j++) {
       Brick br=bricks.get(j);
-      if (b.x+Ball.r>br.x && b.x<br.x+Brick.rwidth && (b.y+Ball.r==br.y || b.y==br.y+Brick.rheight)) {
+      if ((b.y+Ball.r==br.y-Brick.rheight || b.y-Ball.r==br.y+Brick.rheight) && (b.x+Ball.r>br.x-Brick.rwidth && b.x-Ball.r<br.x+Brick.rwidth)) {
         b.yD*=-1;
         bricks.remove(br);
-      } else if (b.y+Ball.r>br.y && b.y<br.y+Brick.rheight && (b.x+Ball.r==br.x || b.x==br.x+Brick.rheight)) {
+        score++;
+      } else if ((b.x+Ball.r==br.x-Brick.rwidth || b.x-Ball.r==br.x+Brick.rwidth) && (b.y+Ball.r>br.y-Brick.rheight && b.y-Ball.r<br.y+Brick.rheight)) {
         b.xD*=-1;
         bricks.remove(br);
+        score++;
       }
     }
   }
