@@ -11,14 +11,18 @@ void keyReleased() {
 }
 void setup() {
   size(1200, 800);
+  setupScreen();
+}
+void setupScreen() {
   keyboardInput = new Controller();
   balls.add(new Ball(width/4, height/2, 1, 1));
   p=new Paddle(width/2);
-  for (int i=Brick.rwidth; i<width; i+=Brick.rwidth) {
-    for (int j=Brick.rheight; j<height/3; j+=Brick.rheight) {
+  for (int i=Brick.rwidth; i<width; i+=2*Brick.rwidth) {
+    for (int j=Brick.rheight; j<height/3; j+=2*Brick.rheight) {
       bricks.add(new Brick(i, j));
     }
   }
+  run=true;
 }
 void draw() {
   if (run) {
@@ -34,6 +38,8 @@ void draw() {
     collide();
     if (balls.size()==0) lose();
     else if (bricks.size()==0) win();
+  }else{
+    if(key==ENTER) setupScreen();
   }
 }
 void lose() {
@@ -42,6 +48,8 @@ void lose() {
   textSize(100);
   textAlign(CENTER, CENTER);
   text("GAME OVER", 600, 400);
+  textSize(50);
+  text("Press ENTER to restart", 600, 600);
 }
 void win() {
   run=false;
@@ -49,19 +57,22 @@ void win() {
   textSize(100);
   textAlign(CENTER, CENTER);
   text("YOU WIN", 600, 400);
+  textSize(50);
+  text("Press ENTER to restart", 600, 600);
 }
 
 void collide() {
   for (int i=0; i<balls.size(); i++) {
     Ball b=balls.get(i);
-    if (b.y+Ball.r==p.y && (b.x>p.x-Paddle.rwidth && b.x<p.x+Paddle.rwidth)) b.yD*=-1;
-    if (b.y+Ball.r==height) balls.remove(b);
+    if ((b.y+Ball.r==p.y-Paddle.rheight || b.y-Ball.r==p.y+Paddle.rheight) && (b.x+Ball.r>p.x-Paddle.rwidth && b.x-Ball.r<p.x+Paddle.rwidth)) b.yD*=-1;
+    else if ((b.x+Ball.r==p.x-Paddle.rwidth || b.x-Ball.r==p.x+Paddle.rwidth) && (b.y+Ball.r>p.y-Paddle.rheight && b.y-Ball.r<p.y+Paddle.rheight)) b.xD*=-1;
+    else if (b.y+Ball.r==height) balls.remove(b);
     for (int j=0; j<bricks.size(); j++) {
       Brick br=bricks.get(j);
-      if (b.x+Ball.r>br.x && b.x<br.x+Brick.rwidth && (b.y+Ball.r==br.y || b.y==br.y+Brick.rheight)) {
+      if ((b.y+Ball.r==br.y-Brick.rheight || b.y-Ball.r==br.y+Brick.rheight) && (b.x+Ball.r>br.x-Brick.rwidth && b.x-Ball.r<br.x+Brick.rwidth)) {
         b.yD*=-1;
         bricks.remove(br);
-      } else if (b.y+Ball.r>br.y && b.y<br.y+Brick.rheight && (b.x+Ball.r==br.x || b.x==br.x+Brick.rheight)) {
+      } else if ((b.x+Ball.r==br.x-Brick.rwidth || b.x-Ball.r==br.x+Brick.rwidth) && (b.y+Ball.r>br.y-Brick.rheight && b.y-Ball.r<br.y+Brick.rheight)) {
         b.xD*=-1;
         bricks.remove(br);
       }
