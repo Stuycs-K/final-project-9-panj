@@ -12,10 +12,10 @@ void keyReleased() {
 void setup() {
   size(1200, 800);
   keyboardInput = new Controller();
-  balls.add(new Ball(width/2, height/2, 1, 1));
+  balls.add(new Ball(width/4, height/2, 1, 1));
   p=new Paddle(width/2);
-  for (int i=0; i<width; i+=Brick.rwidth) {
-    for (int j=0; j<height/3; j+=Brick.rheight) {
+  for (int i=Brick.rwidth; i<width; i+=Brick.rwidth) {
+    for (int j=Brick.rheight; j<height/3; j+=Brick.rheight) {
       bricks.add(new Brick(i, j));
     }
   }
@@ -54,7 +54,7 @@ void win() {
 void collide() {
   for (int i=0; i<balls.size(); i++) {
     Ball b=balls.get(i);
-    if (b.y+Ball.r==p.y) b.yD*=-1;
+    if (b.y+Ball.r==p.y && (b.x>p.x-Paddle.rwidth && b.x<p.x+Paddle.rwidth)) b.yD*=-1;
     if (b.y+Ball.r==height) balls.remove(b);
     for (int j=0; j<bricks.size(); j++) {
       Brick br=bricks.get(j);
