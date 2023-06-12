@@ -30,6 +30,16 @@ void setupScreen() {
   }
   run="RUN";
 }
+void cheatScreen() {
+  keyboardInput = new Controller();
+  total=0;
+  balls=new ArrayList<Ball>(1);
+  bricks=new ArrayList<Brick>();
+  balls.add(new Ball(200, 400, 1, 1));
+  total++;
+  bricks.add(new Brick(500, 700));
+  run="CHEAT";
+}
 void draw() {
   if (run.equals("START")) {
     background(255);
@@ -41,11 +51,14 @@ void draw() {
     text("Difficulty", 600, 400);
     fill(255);
     rectMode(CENTER);
-    rect(500,500,162,100);
-    rect(700,500,162,100);
+    rect(500, 500, 162, 100);
+    rect(700, 500, 162, 100);
     fill(0);
-    text("Press ENTER to start", 600, 400);
-    if(key==ENTER) setupScreen();
+    text("Press ENTER to start", 600, 600);
+    if (key==ENTER) setupScreen();
+    textSize(25);
+    text("Press RIGHT mouse button for cheat", 600, 775);
+    if (mousePressed && (mouseButton == RIGHT)) cheatScreen();
   } else if (run.equals("RUN")) {
     background(255);
     for (int i=0; i<balls.size(); i++) {
@@ -57,15 +70,38 @@ void draw() {
     if (keyboardInput.isPressed(Controller.P1_LEFT)) p.moveLeft();
     if (keyboardInput.isPressed(Controller.P1_RIGHT)) p.moveRight();
     collide();
-    if (balls.size()==0) lose();
-    else if (bricks.size()==0) win();
+    if (balls.size()==0) {
+      lose();
+      run="END";
+    } else if (bricks.size()==0) {
+      win();
+      run="END";
+    }
+  } else if (run.equals("CHEAT")) {
+    background(255);
+    for (int i=0; i<balls.size(); i++) {
+      balls.get(i).display();
+      balls.get(i).move();
+    }
+    for (int i=0; i<bricks.size(); i++) bricks.get(i).display();
+    for (int i=0; i<balls.size(); i++) {
+      for (int j=0; j<bricks.size(); j++) {
+        if (balls.get(i).y+Ball.r==bricks.get(j).y-Brick.rheight) {
+          bricks.remove(j);
+          win();
+          run="CHEATEND";
+        }
+      }
+    }
   } else if (run.equals("END")) {
     if (key==ENTER) setupScreen();
-    else if(key==BACKSPACE) run="START";
+    else if (key==BACKSPACE) run="START";
+  } else if (run.equals("CHEATEND")) {
+    if (key==ENTER) cheatScreen();
+    else if (key==BACKSPACE) run="START";
   }
 }
 void lose() {
-  run="END";
   fill(0);
   textSize(100);
   textAlign(CENTER, CENTER);
@@ -76,7 +112,6 @@ void lose() {
   text("Press BACKSPACE to return to menu", 600, 650);
 }
 void win() {
-  run="END";
   fill(0);
   textSize(100);
   textAlign(CENTER, CENTER);
@@ -86,7 +121,6 @@ void win() {
   text("Press ENTER to restart", 600, 600);
   text("Press BACKSPACE to return to menu", 600, 650);
 }
-
 void collide() {
   for (int i=0; i<balls.size(); i++) {
     Ball b=balls.get(i);
