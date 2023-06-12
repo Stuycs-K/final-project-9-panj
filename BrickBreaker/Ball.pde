@@ -14,8 +14,8 @@ public class Ball {
     circle(x, y, 2*r);
   }
   void move() {
-    x+=2*xD;
-    y+=2*yD;
+    x+=xD;
+    y+=yD;
     if (x+r>width || x-r<0) xD*=-1;
     if (y+r>height || y-r<0) yD*=-1;
   }

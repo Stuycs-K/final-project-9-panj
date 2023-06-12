@@ -1,11 +1,11 @@
 public class Paddle {
   private float x, y;
   private int movement=10;
-  private static final int rwidth=50;
+  private int rwidth=50;
   private static final int rheight=10;
   public Paddle(float xPos) {
     x=xPos;
-    y=height*4/5;
+    y=640;
   }
   public void display() {
     rectMode(CENTER);
