@@ -13,6 +13,10 @@ void keyReleased() {
 }
 void setup() {
   size(1200, 800);
+  balls.add(new Ball(width/2,height/2,1,1));
+  balls.add(new Ball(width/2,height/2,-1,1));
+  balls.add(new Ball(width/2,height/2,1,-1));
+  balls.add(new Ball(width/2,height/2,-1,-1));
   run="START";
 }
 void setupScreen() {
@@ -44,7 +48,11 @@ void cheatScreen() {
 }
 void draw() {
   if (run.equals("START")) {
-    background(255);
+    background(173,216,230);
+    for(int i=0;i<balls.size();i++){
+      balls.get(i).display();
+      balls.get(i).move();
+    }
     fill(0);
     textSize(100);
     textAlign(CENTER, CENTER);
