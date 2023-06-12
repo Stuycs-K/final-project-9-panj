@@ -2,9 +2,8 @@ ArrayList<Ball> balls=new ArrayList<Ball>(1);
 ArrayList<Brick> bricks=new ArrayList<Brick>();
 Paddle p;
 Controller keyboardInput;
-int score=0;
 int total=0;
-boolean run=true;
+String run;
 void keyPressed() {
   keyboardInput.press(keyCode);
 }
@@ -13,22 +12,35 @@ void keyReleased() {
 }
 void setup() {
   size(1200, 800);
-  setupScreen();
+  run="START";
 }
 void setupScreen() {
   keyboardInput = new Controller();
-  balls.add(new Ball(width/4, height/2, 1, 1));
-  p=new Paddle(width/2);
+  total=0;
+  balls=new ArrayList<Ball>(1);
+  bricks=new ArrayList<Brick>();
+  int[] randomspeed=new int[] {-1, 1};
+  balls.add(new Ball(int(random(2*Ball.r, width-2*Ball.r)), height/2, randomspeed[int(random(1))], 1));
+  p=new Paddle(int(random(2*Paddle.rwidth, width-2*Paddle.rwidth)));
   for (int i=Brick.rwidth; i<width; i+=2*Brick.rwidth) {
     for (int j=Brick.rheight; j<height/3; j+=2*Brick.rheight) {
       bricks.add(new Brick(i, j));
       total++;
     }
   }
-  run=true;
+  run="RUN";
 }
 void draw() {
-  if (run) {
+  if (run.equals("START")) {
+    background(255);
+    fill(0);
+    textSize(100);
+    textAlign(CENTER, CENTER);
+    text("Brick Breaker", 600, 100);
+    textSize(50);
+    text("Difficulty", 600, 400);
+  } else if (run.equals("RUN")) {
+    setupScreen();
     background(255);
     for (int i=0; i<balls.size(); i++) {
       balls.get(i).display();
@@ -41,28 +53,28 @@ void draw() {
     collide();
     if (balls.size()==0) lose();
     else if (bricks.size()==0) win();
-  } else {
+  } else if (run.equals("END")) {
     if (key==ENTER) setupScreen();
   }
 }
 void lose() {
-  run=false;
+  run="END";
   fill(0);
   textSize(100);
   textAlign(CENTER, CENTER);
   text("GAME OVER", 600, 400);
   textSize(50);
-  text("SCORE: "+score+"/"+total, 600, 500);
+  text("SCORE: "+(total-bricks.size())+"/"+total, 600, 500);
   text("Press ENTER to restart", 600, 600);
 }
 void win() {
-  run=false;
+  run="END";
   fill(0);
   textSize(100);
   textAlign(CENTER, CENTER);
   text("YOU WIN", 600, 400);
   textSize(50);
-  text("SCORE: "+score+"/"+total, 600, 500);
+  text("SCORE: "+(total-bricks.size())+"/"+total, 600, 500);
   text("Press ENTER to restart", 600, 600);
 }
 
@@ -75,13 +87,11 @@ void collide() {
     for (int j=0; j<bricks.size(); j++) {
       Brick br=bricks.get(j);
       if ((b.y+Ball.r==br.y-Brick.rheight || b.y-Ball.r==br.y+Brick.rheight) && (b.x+Ball.r>br.x-Brick.rwidth && b.x-Ball.r<br.x+Brick.rwidth)) {
+        bricks.remove(br);
         b.yD*=-1;
-        bricks.remove(br);
-        score++;
       } else if ((b.x+Ball.r==br.x-Brick.rwidth || b.x-Ball.r==br.x+Brick.rwidth) && (b.y+Ball.r>br.y-Brick.rheight && b.y-Ball.r<br.y+Brick.rheight)) {
-        b.xD*=-1;
         bricks.remove(br);
-        score++;
+        b.xD*=-1;
       }
     }
   }
