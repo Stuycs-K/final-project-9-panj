@@ -1,7 +1,7 @@
 ArrayList<Ball> balls=new ArrayList<Ball>(1);
 ArrayList<Brick> bricks=new ArrayList<Brick>();
 Paddle p;
-Controller keyboardInput;
+Controller keyboardInput=new Controller();
 int total=0;
 String run;
 void keyPressed() {
@@ -12,8 +12,7 @@ void keyReleased() {
 }
 void setup() {
   size(1200, 800);
-  setupScreen();
-  run="RUN";
+  run="START";
 }
 void setupScreen() {
   keyboardInput = new Controller();
@@ -40,6 +39,13 @@ void draw() {
     text("Brick Breaker", 600, 100);
     textSize(50);
     text("Difficulty", 600, 400);
+    fill(255);
+    rectMode(CENTER);
+    rect(500,500,162,100);
+    rect(700,500,162,100);
+    fill(0);
+    text("Press ENTER to start", 600, 400);
+    if(key==ENTER) setupScreen();
   } else if (run.equals("RUN")) {
     background(255);
     for (int i=0; i<balls.size(); i++) {
@@ -55,6 +61,7 @@ void draw() {
     else if (bricks.size()==0) win();
   } else if (run.equals("END")) {
     if (key==ENTER) setupScreen();
+    else if(key==BACKSPACE) run="START";
   }
 }
 void lose() {
@@ -66,6 +73,7 @@ void lose() {
   textSize(50);
   text("SCORE: "+(total-bricks.size())+"/"+total, 600, 500);
   text("Press ENTER to restart", 600, 600);
+  text("Press BACKSPACE to return to menu", 600, 650);
 }
 void win() {
   run="END";
@@ -76,6 +84,7 @@ void win() {
   textSize(50);
   text("SCORE: "+(total-bricks.size())+"/"+total, 600, 500);
   text("Press ENTER to restart", 600, 600);
+  text("Press BACKSPACE to return to menu", 600, 650);
 }
 
 void collide() {
