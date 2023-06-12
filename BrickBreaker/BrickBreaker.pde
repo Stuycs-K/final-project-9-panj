@@ -4,6 +4,7 @@ Paddle p;
 Controller keyboardInput=new Controller();
 int total=0;
 String run;
+boolean normal=true;
 void keyPressed() {
   keyboardInput.press(keyCode);
 }
@@ -20,10 +21,11 @@ void setupScreen() {
   balls=new ArrayList<Ball>(1);
   bricks=new ArrayList<Brick>();
   int[] randomspeed=new int[] {-1, 1};
-  balls.add(new Ball(int(random(2*Ball.r, width-2*Ball.r)), height/2, randomspeed[int(random(1))], 1));
+  if(normal) balls.add(new Ball(int(random(2*Ball.r, width-2*Ball.r)), height/2, randomspeed[int(random(1))], 1));
+  else balls.add(new Ball(int(random(2*Ball.r, width-2*Ball.r)), height/2, 2.5*randomspeed[int(random(1))], 2.5));
   p=new Paddle(width/2);
   for (int i=Brick.rwidth; i<width; i+=2*Brick.rwidth) {
-    for (int j=Brick.rheight; j<height/3; j+=2*Brick.rheight) {
+    for (int j=Brick.rheight; j<height*3/8; j+=2*Brick.rheight) {
       bricks.add(new Brick(i, j));
       total++;
     }
@@ -49,11 +51,24 @@ void draw() {
     text("Brick Breaker", 600, 100);
     textSize(50);
     text("Difficulty", 600, 400);
-    fill(255);
-    rectMode(CENTER);
-    rect(500, 500, 162, 100);
-    rect(700, 500, 162, 100);
+    if (normal) {
+      rectMode(CENTER);
+      fill(0, 0, 255);
+      rect(500, 500, 162, 100);
+      fill(255);
+      rect(700, 500, 162, 100);
+    } else {
+      rectMode(CENTER);
+      fill(255);
+      rect(500, 500, 162, 100);
+      fill(255, 0, 0);
+      rect(700, 500, 162, 100);
+    }
     fill(0);
+    text("Normal", 500, 500);
+    text("Difficult", 700, 500);
+    if (mouseX >= 500-162 && mouseX <= 500+162  && mouseY >= 500-100 && mouseY <= 500+100) normal=true;
+    else if (mouseX >= 700-162 && mouseX <= 700+162 && mouseY >= 500-100 && mouseY <= 500+100) normal=false;
     text("Press ENTER to start", 600, 600);
     if (key==ENTER) setupScreen();
     textSize(25);
@@ -124,8 +139,8 @@ void win() {
 void collide() {
   for (int i=0; i<balls.size(); i++) {
     Ball b=balls.get(i);
-    if ((b.y+Ball.r==p.y-Paddle.rheight || b.y-Ball.r==p.y+Paddle.rheight) && (b.x+Ball.r>p.x-Paddle.rwidth && b.x-Ball.r<p.x+Paddle.rwidth)) b.yD*=-1;
-    else if ((b.x+Ball.r==p.x-Paddle.rwidth || b.x-Ball.r==p.x+Paddle.rwidth) && (b.y+Ball.r>p.y-Paddle.rheight && b.y-Ball.r<p.y+Paddle.rheight)) b.xD*=-1;
+    if ((b.y+Ball.r==p.y-Paddle.rheight || b.y-Ball.r==p.y+Paddle.rheight) && (b.x+Ball.r>p.x-p.rwidth && b.x-Ball.r<p.x+p.rwidth)) b.yD*=-1;
+    else if ((b.x+Ball.r==p.x-p.rwidth || b.x-Ball.r==p.x+p.rwidth) && (b.y+Ball.r>p.y-Paddle.rheight && b.y-Ball.r<p.y+Paddle.rheight)) b.xD*=-1;
     else if (b.y+Ball.r==height) balls.remove(b);
     for (int j=0; j<bricks.size(); j++) {
       Brick br=bricks.get(j);
@@ -133,10 +148,12 @@ void collide() {
         bricks.remove(br);
         j--;
         b.yD*=-1;
+        if (!normal) p.rwidth*=0.99999999;
       } else if ((b.x+Ball.r==br.x-Brick.rwidth || b.x-Ball.r==br.x+Brick.rwidth) && (b.y+Ball.r>br.y-Brick.rheight && b.y-Ball.r<br.y+Brick.rheight)) {
         bricks.remove(br);
         j--;
         b.xD*=-1;
+        if (!normal) p.rwidth*=0.99999999;
       }
     }
   }
