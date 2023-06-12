@@ -2,15 +2,19 @@ public class Ball {
   private float x, y;
   private float xD, yD;
   private static final int r=10;
+  private int re, g, b;
   public Ball(float xPos, float yPos, float xSpe, float ySpe) {
     x = xPos;
     y = yPos;
     xD = xSpe;
     yD = ySpe;
+    re=int(random(255));
+    g=int(random(255));
+    b=int(random(255));
   }
   void display() {
     ellipseMode(CENTER);
-    fill(255);
+    fill(r, g, b);
     circle(x, y, 2*r);
   }
   void move() {
