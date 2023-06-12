@@ -19,7 +19,7 @@
 
 -Began to add collision movements
 
-### 05/26
+### 05/26-29
 
 -Finished Paddle collision
 -Began Brick collision
@@ -42,3 +42,11 @@
 -Begin fixing collisions
 -Changing shapes to be center
 -Fixed Ball, Brick, and Paddle display
+
+### 06/09-11
+-Finished fixing collisions
+-Added normal/difficult/cheat mode (Difficult exponentially decreases Paddle length. Cheat mode places one Brick in the path to win.)
+-Added start screen
+-Added end screen with score
+-Added colors to everything
+-Added keyboard buttons
