@@ -156,12 +156,12 @@ void collide() {
         bricks.remove(br);
         j--;
         b.yD*=-1;
-        if (!normal) p.rwidth*=0.99999999;
+        if (!normal) p.rwidth*=0.9999999;
       } else if ((b.x+Ball.r==br.x-Brick.rwidth || b.x-Ball.r==br.x+Brick.rwidth) && (b.y+Ball.r>br.y-Brick.rheight && b.y-Ball.r<br.y+Brick.rheight)) {
         bricks.remove(br);
         j--;
         b.xD*=-1;
-        if (!normal) p.rwidth*=0.99999999;
+        if (!normal) p.rwidth*=0.9999999;
       }
     }
   }
