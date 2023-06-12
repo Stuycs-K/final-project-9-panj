@@ -13,6 +13,10 @@ void keyReleased() {
 }
 void setup() {
   size(1200, 800);
+  balls.add(new Ball(width/2,height/2,1,1));
+  balls.add(new Ball(width/2,height/2,-1,1));
+  balls.add(new Ball(width/2,height/2,1,-1));
+  balls.add(new Ball(width/2,height/2,-1,-1));
   run="START";
 }
 void setupScreen() {
@@ -44,7 +48,11 @@ void cheatScreen() {
 }
 void draw() {
   if (run.equals("START")) {
-    background(255);
+    background(173,216,230);
+    for(int i=0;i<balls.size();i++){
+      balls.get(i).display();
+      balls.get(i).move();
+    }
     fill(0);
     textSize(100);
     textAlign(CENTER, CENTER);
@@ -75,7 +83,7 @@ void draw() {
     text("Press RIGHT mouse button for cheat", 600, 775);
     if (mousePressed && (mouseButton == RIGHT)) cheatScreen();
   } else if (run.equals("RUN")) {
-    background(255);
+    background(144,238,144);
     for (int i=0; i<balls.size(); i++) {
       balls.get(i).display();
       balls.get(i).move();
@@ -93,7 +101,7 @@ void draw() {
       run="END";
     }
   } else if (run.equals("CHEAT")) {
-    background(255);
+    background(255,114,118);
     for (int i=0; i<balls.size(); i++) {
       balls.get(i).display();
       balls.get(i).move();
