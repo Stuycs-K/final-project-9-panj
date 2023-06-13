@@ -50,3 +50,6 @@
 -Added end screen with score
 -Added colors to everything
 -Added keyboard buttons
+
+# DEV LOG
+To start the game, select your game mode with mouse and key. All the key buttons are working correctly. The replay options are also working correctly. Every combination of options should also be working correctly. The only bug is a problem with the game. Sometimes, in the correct conditions, the ball will be aligned directly between two Bricks, and because the code is set to bounce off in the negated direction, the Ball continues straight. In another situation, the Ball may be just within the Paddle movement or Brick, and there will be a chaining effect, where the Ball will wrap around the Paddle or continuously jump around from Brick to Brick. There's a strange bug where the Ball cannot see the Bricks, but this fixes up by stopping the code and re-running it. These are the only noticable bugs. Content resources that were extremely helpful were OrbPhysics and Controller. I used OrbPhysics for the wall bouncing effect and I adjusted the values to have the correct size ball. From OrbPhysics, I also copied a similar structure for Brick and Paddle. Controller was completely from Mr. K and I only adjusted the buttons to add more flexibility in button use. This allowed the Paddle to move without a double input or holding effect.
